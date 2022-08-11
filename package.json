@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node modb.js --peer-port 52000 --api-port 53000",
+    "start": "node modb.js --peer-port 52000 --api-port 53000",
+    "dev": "nodemon modb.js --peer-port 52000 --api-port 53000",
     "cluster": "concurrently npm:cluster:1 npm:cluster:2 npm:cluster:3 npm:cluster:4",
     "cluster:1": "nodemon modb.js --peer-port=52001 --api-port=53001",
     "cluster:2": "nodemon modb.js --peer-port=52002 --api-port=53002 --seed=127.0.0.1:52001",
