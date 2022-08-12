@@ -1,27 +1,24 @@
-// core
-import http from 'http'
-
 // npm
 import fastify from 'fastify'
 
 // local
+import env from './lib/env.js'
 import argv from './lib/argv.js'
+import Config from './lib/config.js'
+import Store from './lib/store.js'
+import createServerPeer from './lib/create-server-peer.js'
 
 // storage
-const peer = {}
-const kv = {}
+const config = new Config()
+const store = new Store()
 
 // an app
-const peerApp = fastify({ logger: true })
-
-peerApp.get('/', async (request, reply) => {
-  return { ok: true }
-})
+const peerServer = createServerPeer(env, argv, config, store)
 
 try {
-  await peerApp.listen({ port: argv.peer.port })
+  await peerServer.listen({ port: argv.peer.port })
 } catch (err) {
-  peerApp.log.error(err)
+  peerServer.log.error(err)
   process.exit(1)
 }
 
