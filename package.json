@@ -5,18 +5,23 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node modb.js --peer-port 52000 --api-port 53000",
-    "dev": "nodemon modb.js --peer-port 52000 --api-port 53000",
+    "start": "node modb.js --peer-url=http://localhost:52000 --api-url=http://localhost:53000",
+    "dev": "nodemon modb.js --peer-url=52000 --api-url=http://localhost:53000",
+    "dev1": "nodemon modb.js --peer-url=http://localhost:52001 --api-url=http://localhost:53001",
+    "dev2": "nodemon modb.js --peer-url=http://localhost:52002 --api-url=http://localhost:53002 --seed-url=http://127.0.0.1:52001",
+    "dev3": "nodemon modb.js --peer-url=http://localhost:52003 --api-url=http://localhost:53003 --seed-url=http://127.0.0.1:52002",
     "cluster": "concurrently npm:cluster:1 npm:cluster:2 npm:cluster:3 npm:cluster:4 npm:cluster:5",
-    "cluster:1": "sleep 0 && nodemon modb.js --peer-port=52001 --api-port=53001",
-    "cluster:2": "sleep 1 && nodemon modb.js --peer-port=52002 --api-port=53002 --seed=127.0.0.1:52001",
-    "cluster:3": "sleep 2 && nodemon modb.js --peer-port=52003 --api-port=53003 --seed=127.0.0.1:52002",
-    "cluster:4": "sleep 3 && nodemon modb.js --peer-port=52004 --api-port=53004 --seed=127.0.0.1:52002",
-    "cluster:5": "sleep 4 && nodemon modb.js --peer-port=52005 --api-port=53005 --seed=127.0.0.1:52002 --seed=127.0.0.1:52003 --seed=127.0.0.1:52004"
+    "cluster:1": "nodemon modb.js --peer-port=52001 --api-port=53001",
+    "cluster:2": "nodemon modb.js --peer-port=52002 --api-port=53002 --seed=http://127.0.0.1:52001",
+    "cluster:3": "nodemon modb.js --peer-port=52003 --api-port=53003 --seed=http://127.0.0.1:52002",
+    "cluster:4": "nodemon modb.js --peer-port=52004 --api-port=53004 --seed=http://127.0.0.1:52002",
+    "cluster:5": "nodemon modb.js --peer-port=52005 --api-port=53005 --seed=http://127.0.0.1:52002 --seed=http://127.0.0.1:52003 --seed=http://127.0.0.1:52004"
   },
   "dependencies": {
     "@fastify/formbody": "^7.0.1",
-    "fastify": "^4.4.0"
+    "fastify": "^4.4.0",
+    "got": "^12.3.1",
+    "ms": "^2.1.3"
   },
   "devDependencies": {
     "concurrently": "^7.3.0",
